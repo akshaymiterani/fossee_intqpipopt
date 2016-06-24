@@ -12,7 +12,7 @@ ub=[%inf, %inf];
 
 path = get_absolute_file_path('example8.sce');
 
-[xopt,fopt,status,output]=intqpipopt(H,f,intcon,A,b,Aeq,beq,lb,ub,[0 0], [path + '/bonmin.opt'])
+[xopt,fopt,status,output]=intqpipopt(H,f,intcon,A,b,Aeq,beq,lb,ub,[0 0],list(),[path + '/bonmin.opt'])
 
 clear path;
 

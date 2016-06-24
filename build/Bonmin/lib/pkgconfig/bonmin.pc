@@ -1,4 +1,4 @@
-prefix=/home/akshaymiterani/Desktop/Bonmin-stable/build
+prefix=/home/akshaymiterani/Downloads/Bonmin-1.8.4/build
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include/coin
@@ -6,7 +6,7 @@ includedir=${prefix}/include/coin
 Name: Bonmin
 Description: Basic Open-source Nonlinear Mixed Integer programming
 URL: https://projects.coin-or.org/Bonmin
-Version: 1.8
+Version: 1.8.4
 Libs: -L${libdir} -lbonmin 
 Cflags: -I${includedir}
 Requires: cbc osi-clp ipopt 

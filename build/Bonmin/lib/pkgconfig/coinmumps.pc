@@ -1,4 +1,4 @@
-prefix=/home/akshaymiterani/Desktop/Bonmin-stable/build
+prefix=/home/akshaymiterani/Downloads/Bonmin-1.8.4/build
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include/coin/ThirdParty
@@ -6,7 +6,7 @@ includedir=${prefix}/include/coin/ThirdParty
 Name: Mumps
 Description: Multifrontal Massively Parallel sparse direct Solver
 URL: https://projects.coin-or.org/BuildTools
-Version: 1.5
+Version: 1.5.4
 Libs: -L${libdir} -lcoinmumps  -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. -lgfortran -lm -lquadmath
 Cflags: -I${includedir}
 Requires: coinblas 

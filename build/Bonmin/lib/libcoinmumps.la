@@ -14,7 +14,7 @@ library_names='libcoinmumps.so.1.5.4 libcoinmumps.so.1 libcoinmumps.so'
 old_library=''
 
 # Libraries that this one depends upon.
-dependency_libs=' -lblas -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. -lgfortran -lm -lquadmath'
+dependency_libs=' -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. /home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib/libcoinblas.la -L/lib/x86_64-linux-gnu -L/usr/lib/x86_64-linux-gnu -lgfortran -lm -lquadmath'
 
 # Version information for libcoinmumps.
 current=6
@@ -32,4 +32,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/pranav/Bonmin-1.8.4/build/lib'
+libdir='/home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib'

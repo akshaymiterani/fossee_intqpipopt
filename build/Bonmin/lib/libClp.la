@@ -14,7 +14,7 @@ library_names='libClp.so.1.13.8 libClp.so.1 libClp.so'
 old_library=''
 
 # Libraries that this one depends upon.
-dependency_libs=' /home/pranav/Bonmin-1.8.4/build/lib/libcoinasl.la -ldl /home/pranav/Bonmin-1.8.4/build/lib/libcoinmumps.la -lgfortran -lquadmath /home/pranav/Bonmin-1.8.4/build/lib/libCoinUtils.la -lz -llapack -lblas'
+dependency_libs=' /home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib/libcoinmumps.la /home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib/libCoinUtils.la /home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib/libcoinlapack.la /home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib/libcoinblas.la -lgfortran -lquadmath'
 
 # Version information for libClp.
 current=14
@@ -32,4 +32,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/pranav/Bonmin-1.8.4/build/lib'
+libdir='/home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib'

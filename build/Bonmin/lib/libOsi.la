@@ -14,7 +14,7 @@ library_names='libOsi.so.1.12.6 libOsi.so.1 libOsi.so'
 old_library=''
 
 # Libraries that this one depends upon.
-dependency_libs=' /home/pranav/Bonmin-1.8.4/build/lib/libCoinUtils.la -lz -llapack -lblas'
+dependency_libs=' /home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib/libCoinUtils.la /home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib/libcoinlapack.la /home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib/libcoinblas.la -lgfortran -lquadmath'
 
 # Version information for libOsi.
 current=13
@@ -32,4 +32,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/pranav/Bonmin-1.8.4/build/lib'
+libdir='/home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib'

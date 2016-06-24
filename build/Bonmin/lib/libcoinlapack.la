@@ -14,7 +14,7 @@ library_names='libcoinlapack.so.1.5.4 libcoinlapack.so.1 libcoinlapack.so'
 old_library=''
 
 # Libraries that this one depends upon.
-dependency_libs=' -lblas'
+dependency_libs=' -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/../lib -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. /home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib/libcoinblas.la -lgfortran -lm -lquadmath'
 
 # Version information for libcoinlapack.
 current=6
@@ -32,4 +32,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/pranav/Bonmin-1.8.4/build/lib'
+libdir='/home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib'

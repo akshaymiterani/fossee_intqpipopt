@@ -1,4 +1,4 @@
-prefix=/home/akshaymiterani/Desktop/Bonmin-stable/build
+prefix=/home/akshaymiterani/Downloads/Bonmin-1.8.4/build
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include/coin
@@ -6,7 +6,7 @@ includedir=${prefix}/include/coin
 Name: Osi
 Description: COIN-OR Open Solver Interface
 URL: https://projects.coin-or.org/Osi
-Version: 0.107
+Version: 0.107.6
 Libs: -L${libdir} -lOsi 
 Cflags: -I${includedir}
 Requires: coinutils 

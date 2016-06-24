@@ -19,7 +19,8 @@ function varargout = intqpipopt (varargin)
 	//   xopt = intqpipopt(H,f,intcon,A,b,Aeq,beq)
 	//   xopt = intqpipopt(H,f,intcon,A,b,Aeq,beq,lb,ub)
 	//   xopt = intqpipopt(H,f,intcon,A,b,Aeq,beq,lb,ub,x0)
-	//   xopt = intqpipopt(H,f,intcon,A,b,Aeq,beq,lb,ub,x0,"path/to/bonmin_options_file")
+	//   xopt = intqpipopt(H,f,intcon,A,b,Aeq,beq,lb,ub,x0,options)
+	//   xopt = intqpipopt(H,f,intcon,A,b,Aeq,beq,lb,ub,x0,options,"file_path")
 	//   [xopt,fopt,exitflag,output] = intqpipopt( ... )
 	//   
 	//   Parameters
@@ -33,7 +34,8 @@ function varargout = intqpipopt (varargin)
 	//   lb : a vector of double, contains lower bounds of the variables.
 	//   ub : a vector of double, contains upper bounds of the variables.
 	//   x0 : a vector of double, contains initial guess of variables.
-	//   param : a list containing the parameters to be set.
+	//   options : a list containing the parameters to be set.
+	//	 file_path : path to bonmin opt file if used.
 	//   xopt : a vector of double, the computed solution of the optimization problem.
 	//   fopt : a double, the value of the function at x.
 	//   exitflag : The exit status. See below for details.
@@ -55,14 +57,14 @@ function varargout = intqpipopt (varargin)
 	//   
 	//   The routine calls Bonmin for solving the quadratic problem, Bonmin is a library written in C++.
 	//
-  // The exitflag allows to know the status of the optimization which is given back by Bonmin.
+	// The exitflag allows to know the status of the optimization which is given back by Bonmin.
 	// <itemizedlist>
-	//   <listitem>exitflag=0 : Optimal Solution Found </listitem>
-	//   <listitem>exitflag=1 : Maximum Number of Iterations Exceeded. Output may not be optimal.</listitem>
-	//   <listitem>exitflag=2 : Maximum CPU Time exceeded. Output may not be optimal.</listitem>
-	//   <listitem>exitflag=3 : Stop at Tiny Step.</listitem>
-	//   <listitem>exitflag=4 : Solved To Acceptable Level.</listitem>
-	//   <listitem>exitflag=5 : Converged to a point of local infeasibility.</listitem>
+	//   <listitem>exitflag=0 : Optimal Solution Found. </listitem>
+	//   <listitem>exitflag=1 : InFeasible Solution.</listitem>
+	//   <listitem>exitflag=2 : Output is Continuous Unbounded.</listitem>
+	//   <listitem>exitflag=3 : Limit Exceeded.</listitem>
+	//   <listitem>exitflag=4 : User Interrupt.</listitem>
+	//   <listitem>exitflag=5 : MINLP Error.</listitem>
 	// </itemizedlist>
 	// 
 	// For more details on exitflag see the Bonmin page, go to http://www.coin-or.org/Bonmin
@@ -91,8 +93,8 @@ function varargout = intqpipopt (varargin)
 	[lhs , rhs] = argn();
 
 	//To check the number of argument given by user
-	if ( rhs < 2 | rhs == 4 | rhs == 6 | rhs == 8 | rhs > 11 ) then
-		errmsg = msprintf(gettext("%s: Unexpected number of input arguments : %d provided while should be in the set of [2 3 5 7 9 10 11]"), "intqpipopt", rhs);
+	if ( rhs < 2 | rhs == 4 | rhs == 6 | rhs == 8 | rhs > 12 ) then
+		errmsg = msprintf(gettext("%s: Unexpected number of input arguments : %d provided while should be in the set of [2 3 5 7 9 10 11 12]"), "intqpipopt", rhs);
 		error(errmsg)
 	end
 	
@@ -110,6 +112,7 @@ function varargout = intqpipopt (varargin)
 	beq = []; 
 	lb = [];
 	ub = [];
+	options = list();
 	bonmin_options_file = '';
 
 	H = varargin(1);
@@ -149,15 +152,21 @@ function varargout = intqpipopt (varargin)
 		ub = varargin(9);
 	end
 
+	
 	if ( rhs<10 | size(varargin(10)) ==0 ) then
 		x0 = repmat(0,nbVar,1)
-	else
-		if rhs == 11 then
-		  x0 = varargin(10);
-		  bonmin_options_file = varargin(11);
 	  else
 	    x0 = varargin(10);
-    end
+	end
+	
+	if (rhs<11|size(varargin(11))==0) then
+      options = list();
+	else
+      options = varargin(11);
+	end
+   
+	if(rhs==12) then
+		bonmin_options_file=varargin(12);
 	end
 	
 	if (size(lb,2)==0) then
@@ -183,7 +192,8 @@ function varargout = intqpipopt (varargin)
 	Checktype("intqpipopt", lb, "lb", 8, "constant")
 	Checktype("intqpipopt", ub, "ub", 9, "constant")
 	Checktype("intqpipopt", x0, "x0", 10, "constant")
-	Checktype("intqpipopt", bonmin_options_file, "bonmin_options_file", 11, "string")
+	Checktype("intqpipopt", options, "options", 11, "list")
+	Checktype("intqpipopt", bonmin_options_file, "bonmin_options_file", 12, "string")
 	
 	nbConInEq = size(A,1);
 	nbConEq = size(Aeq,1);
@@ -342,12 +352,55 @@ function varargout = intqpipopt (varargin)
 	end
 	
 	// Checking if the specified options file exists or not
-	[opt_file, err] = file('open',bonmin_options_file,'old');
-	file('close', opt_file);
-  if (err == 241 | err == 240) & bonmin_options_file ~= '' then
-    error(999, 'The specified options file does not exist!');
-  end
-  //Converting it into bonmin format
+  	if (~isfile(bonmin_options_file) & ~bonmin_options_file=='') then
+    		error(999, 'The specified options file does not exist!');
+ 	end
+ 	
+ 	// Validating Options
+ 	if (type(options) ~= 15) then
+		errmsg = msprintf(gettext("%s: Options should be a list "), "cbcintlinprog");
+		error(errmsg);
+	end
+   
+
+	if (modulo(size(options),2)) then
+		errmsg = msprintf(gettext("%s: Size of parameters should be even"), "cbcintlinprog");
+		error(errmsg);
+	end
+   
+	//Pusing options as required to a double array
+    optval = [];
+    ifval =[];
+    if length(options) == 0 then
+        optval = [0 0 0 0 0];
+        ifval = [0 0 0 0 0];
+    else
+        optval = [0 0 0 0 0];
+        ifval = [0 0 0 0 0];
+        for i=1:2:length(options)
+            select options(i)
+                case 'IntegerTolerance' then
+					ifval(1) = 1;
+                    optval(1) = options(i+1);
+                case 'MaxNodes' then
+					ifval(2) = 1;
+                    optval(2) = options(i+1);
+                case 'MaxTime' then
+					ifval(3) = 1;
+                    optval(3) = options(i+1);
+                case 'AllowableGap' then
+					ifval(4) = 1;
+                    optval(4) = options(i+1);
+                case 'MaxIterations' then
+					ifval(5) = 1;
+                    optval(5) = options(i+1);
+                else
+                    error(999, 'Unknown string argument passed.');
+                end
+        end
+    end
+
+	//Converting it into bonmin format
 	f = f';
 	lb = lb';
 	ub = ub';
@@ -361,7 +414,7 @@ function varargout = intqpipopt (varargin)
 	xopt=[]
 	fopt=[]
 	status=[]
-	[xopt,fopt,status] = sci_intqpipopt(nbVar,nbCon,intconSize,H,f,intcon,conMatrix,conLB,conUB,lb,ub,x0, bonmin_options_file);
+	[xopt,fopt,status] = sci_intqpipopt(nbVar,nbCon,intconSize,H,f,intcon,conMatrix,conLB,conUB,lb,ub,x0,optval,ifval,bonmin_options_file);
 	xopt = xopt';
 
 	output.ConstrViolation = max([0;norm(Aeq*xopt-beq, 'inf');(lb'-xopt);(xopt-ub');(A*xopt-b)]);
@@ -380,7 +433,7 @@ function varargout = intqpipopt (varargin)
     case 2 then
         printf("\nOutput is Continuous Unbounded.s\n");
     case 3 then
-        printf("\nTime Limit Exceeded.\n");
+        printf("\nLimit Exceeded.\n");
     case 4 then
         printf("\nUser Interrupt.\n");
     case 5 then

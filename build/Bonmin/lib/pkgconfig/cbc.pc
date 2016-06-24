@@ -1,4 +1,4 @@
-prefix=/home/akshaymiterani/Desktop/Bonmin-stable/build
+prefix=/home/akshaymiterani/Downloads/Bonmin-1.8.4/build
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include/coin
@@ -6,7 +6,7 @@ includedir=${prefix}/include/coin
 Name: CBC
 Description: COIN-OR Branch and Cut
 URL: https://projects.coin-or.org/Cbc
-Version: 2.9
+Version: 2.9.6
 Libs: -L${libdir} -lCbcSolver -lCbc 
 Cflags: -I${includedir}
-Requires: coinasl osi-clp cgl osi coinutils 
+Requires: osi-clp cgl osi coinutils 

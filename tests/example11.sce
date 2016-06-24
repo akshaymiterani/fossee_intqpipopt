@@ -14,8 +14,8 @@ ub=[10000; 100; 1.5; 100; 100; 1000];
 f=[1; 2; 3; 4; 5; 6]; H=eye(6,6);
 x0 = repmat(0,6,1);
 intcon=[1];
-options=list();
+options=list('MaxNodes',0);
 
-path = get_absolute_file_path('example10.sce');
+path = get_absolute_file_path('example11.sce');
 
 [xopt,fopt,status,output]=intqpipopt(H,f,intcon,A,b,Aeq,beq,lb,ub,x0,options,path+'bonmin.opt')

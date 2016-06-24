@@ -30,7 +30,6 @@ link(lib_path + '/libCbc.so');
 link(lib_path + '/libCbcSolver.so');
 link(lib_path + '/libOsiCbc.so');
 link(lib_path + '/libipopt.so');
-link(lib_path + '/libcoinasl.so');
 link(lib_path + '/libcoinblas.so');
 link(lib_path + '/libcoinlapack.so');
 link(lib_path + '/libcoinmumps.so');

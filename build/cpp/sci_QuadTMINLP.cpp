@@ -212,6 +212,7 @@ void QuadTMINLP::finalize_solution(TMINLP::SolverReturn status, Index n, const N
 
 	finalObjVal_ = obj_value;
 	status_ = status;
+	sciprint(" Status %d",status);
 }
 
 const double * QuadTMINLP::getX()

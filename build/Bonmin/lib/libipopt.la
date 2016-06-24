@@ -14,7 +14,7 @@ library_names='libipopt.so.1.10.4 libipopt.so.1 libipopt.so'
 old_library=''
 
 # Libraries that this one depends upon.
-dependency_libs=' /home/pranav/Bonmin-1.8.4/build/lib/libcoinmumps.la -lgfortran -lquadmath -llapack -lblas -ldl'
+dependency_libs=' /home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib/libcoinmumps.la /home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib/libcoinlapack.la /home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib/libcoinblas.la -lgfortran -lquadmath -ldl'
 
 # Version information for libipopt.
 current=11
@@ -32,4 +32,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/pranav/Bonmin-1.8.4/build/lib'
+libdir='/home/akshaymiterani/Downloads/Bonmin-1.8.4/build/lib'
